@@ -50,6 +50,14 @@ class Order(models.Model):
     )
     city = models.PositiveSmallIntegerField(_('City'),
         choices = CITIES, default=PENZA)
+    FORMING, EXECUTING, DELIVERING = range(3)
+    STATUSES = (
+        (FORMING, _('Forming')),
+        (EXECUTING, _('Executing')),
+        (DELIVERING, _('Delivering')),
+    )
+    status = models.PositiveSmallIntegerField(_('Status'),
+        choices = STATUSES, default=FORMING)
     address = models.TextField(_('Address'), default='', blank=True)
     deliveryman = models.ForeignKey(Deliveryman, blank=True, null=True)
 
