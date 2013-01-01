@@ -44,6 +44,7 @@ class CreateOrderView(CreateView):
             self.object = form.save()
             form.formset.instance = self.object
             form.formset.save()
+            messages.info(self.request, "Ваш заказ сформирован и скоро будет готов")
             return HttpResponseRedirect(self.get_success_url()) 
         else:
             return self.form_invalid(form)
