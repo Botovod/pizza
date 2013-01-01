@@ -15,7 +15,7 @@ class OrderForm(forms.ModelForm):
         widget = forms.Textarea(attrs={'cols':'10', 'rows':'10'}))
     class Meta:
         model = Order
-        fields = ('city', 'address', )
+        fields = ('city', 'address', 'status', )
 
     def __init__(self, request, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
