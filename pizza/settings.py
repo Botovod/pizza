@@ -63,6 +63,10 @@ STATIC_ROOT = ''
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
+# ulogin
+ULOGIN_FIELDS = ['first_name', 'last_name']
+ULOGIN_OPTIONAL = ['sex']
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -85,6 +89,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
+    'django.core.context_processors.request',
 #    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
 
@@ -104,6 +109,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'annoying.middlewares.RedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -127,6 +133,9 @@ INSTALLED_APPS = (
     'pizza',
     'south',
     'django_extensions',
+    'annoying',
+    'loginza',
+    'django_ulogin',
     'crispy_forms',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,6 +151,11 @@ INSTALLED_APPS = (
 
 PIZZA_RECIPIENT_LIST = ['boriskin@adwz.ru']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'loginza.authentication.LoginzaBackend',
+)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

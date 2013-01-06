@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load ulogin_tags %}
 
 {% block content %}
-    {% trans "Hello" %}
-    {% blocktrans %}
-        Hello! Please order a piece of pizza and get delivery for free!
-    {% endblocktrans %}
+    {% if user.is_authenticated %}
+    {% trans "Hello" %}, {{ user.first_name }}
     <form action="{% url 'Order' %}" method="post">
         {% csrf_token %}
         {{ form.formset|crispy }}
         {{ form|crispy }}
         <input type="submit" /> 
     </form>
+    {% else %}
+        <h3>Авторизуйтесь, дабы иметь возможность сделать заказ:</h3>
+        {% ulogin_widget %}
+    {% endif %}
 {% endblock %}

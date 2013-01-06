@@ -1,9 +1,20 @@
 {% extends "base.html" %}
+{% load loginza_widget %}
+{% load ulogin_tags %}
 
-{% block title %}Was Mayans right?{% endblock %}
+{% block title %}Супер - мага - ПИЦЦА{% endblock %}
 
 {% block content %}
-<a href="{% url 'Order' %}">Order pizza</a>
+
+{% if user.is_authenticated %}
+  Добро пожаловать, {{ user.first_name }}
+  <p>Вы можете сделать <a href="{% url 'Order' %}">Заказ</a></p>
+{% else %}
+  Вход через соц. сети:
+  {% ulogin_widget %}
+{% endif %}
+
+<h3> Доступны к заказу пиццы: </h3>
 
 <ul class="unstyled">
     {% for pizza in pizza_list %}
@@ -12,4 +23,7 @@
     </li>
     {% endfor %}
 </ul>
+
+
+
 {% endblock %}
